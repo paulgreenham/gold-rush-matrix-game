@@ -63,7 +63,7 @@ class GoldRush extends Matrix {
             let xCoord = this.getRandomX()
             let yCoord = this.getRandomY()
             let coordinates = this.createCoordPair(xCoord, yCoord)
-            while (arrayOfInvalid.some(cp => JSON.stringify(cp) === JSON.stringify(coordinates))) {      //check if position has already been taken
+            while (arrayOfInvalid.some(invalid => JSON.stringify(invalid) === JSON.stringify(coordinates))) {      //check if position has already been taken
                 xCoord = this.getRandomX()
                 yCoord = this.getRandomY()
                 coordinates = this.createCoordPair(xCoord, yCoord)
@@ -155,6 +155,11 @@ class GoldRush extends Matrix {
         return this.playerLocations[player].y + yCoord === this.playerLocations[this.getOtherPlayer(player)].y
     }
 
+    coordsInWall(x, y) {
+        let coordinates = this.createCoordPair(x, y)
+        return this.wallLocations.some(w => JSON.stringify(w) === JSON.stringify(coordinates))
+    }
+
     isInvalidMove(player, movementArray) {
 
         if (this.hasInvalidX(this.playerLocations[player].x + movementArray[0])) { 
@@ -166,6 +171,10 @@ class GoldRush extends Matrix {
 
         else if (this.hasXConverge(player, movementArray[0]) && this.hasYConverge(player, movementArray[1])) {
             return true     //ie. intended move converges on position of other player
+        }
+        
+        else if (this.coordsInWall(this.playerLocations[player].x + movementArray[0], this.playerLocations[player].y + movementArray[1])) {
+            return true
         }
 
         else {
