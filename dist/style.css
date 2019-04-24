@@ -26,6 +26,10 @@ body {
     border: 1px black solid;
 }
 
+.wall {
+    background-color: slategrey;
+}
+
 @keyframes rotate-coin {
     from {
         width: 20px;
@@ -37,7 +41,7 @@ body {
     }
 }
 
-.coin {
+.coin > span {
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -50,14 +54,14 @@ body {
     animation-timing-function: linear;
 }
 
-.player1 {
+.player1 > span {
     height: 30px;
     width: 30px;
     border-radius: 50%;
     background-color: red;
 }
 
-.player2 {
+.player2 > span {
     height: 30px;
     width: 30px;
     border-radius: 50%;

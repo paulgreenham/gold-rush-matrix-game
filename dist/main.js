@@ -11,6 +11,7 @@ const initialSetUp = function () {
     let rowNum = 6
 
     board.loadBoard(colNum, rowNum)
+    board.populateWalls()
     board.populateCoins()
 
     renderAll()

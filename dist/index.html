@@ -25,8 +25,8 @@
         {{#each board}}
         <div class="board-row">
             {{#each this}}
-            <div class="cell" data-coords="{ {{@index}}: {{@../index}} }">
-                <span class="{{this}}"></span>
+            <div class="cell {{this}}" data-coords="{ {{@index}}: {{@../index}} }">
+                <span></span>
             </div>
             {{/each}}
         </div>

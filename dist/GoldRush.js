@@ -6,6 +6,8 @@ class GoldRush extends Matrix {
         this.yLimit
         this.player1 = "player1"
         this.player2 = "player2"
+        this.wallLocations
+        this.wallSymbol = "wall"
         this.coinLocations
         this.coinSymbol = "coin"
         this.score = {
@@ -74,45 +76,42 @@ class GoldRush extends Matrix {
 
     getRandomWallMetrics() {
         let totalCells = (this.xLimit + 1) * (this.yLimit + 1)
-        let wallNumber = Math.ceil((Math.random() + 1) * totalCells / 5)
+        let wallNumber = Math.ceil((Math.random() + 1) * totalCells / 10)
 
         let usedCoordinates = []
-        addPlayerCoords(usedCoordinates)
-        return getArrayOfCoords(usedCoordinates, wallNumber)
+        this.addPlayerCoords(usedCoordinates)
+
+        return this.getArrayOfCoords(usedCoordinates, wallNumber)
+    }
+
+
+    populateObjects(metricsArray, symbol) {
+        for (let i = 0; i < metricsArray.length; i ++) {
+            let x = Object.keys(metricsArray[i])[0]
+            let y = metricsArray[i][x]
+            this.alter(x, y, symbol)
+        }
+    }
+
+    populateWalls() {
+        this.wallLocations = this.getRandomWallMetrics()
+        this.populateObjects(this.wallLocations, this.wallSymbol)
     }
 
     getRandomCoinMetrics() {
-        let coinMetrics = []
-
-        let totalFreeCells = (this.xLimit + 1) * (this.yLimit + 1) - 2
+        let totalFreeCells = (this.xLimit + 1) * (this.yLimit + 1) - (2 + this.wallLocations.length)
         let coinNumber = Math.ceil(Math.random() * totalFreeCells)
 
-        let usedCoordinates = []        //add current players' positions to the array of used coordinates
-        usedCoordinates.push(this.createCoordPair(this.playerLocations[this.player1].x, this.playerLocations[this.player1].y))
-        usedCoordinates.push(this.createCoordPair(this.playerLocations[this.player2].x, this.playerLocations[this.player2].y))
+        let usedCoordinates = []
+        this.addPlayerCoords(usedCoordinates)
+        usedCoordinates.push(...this.wallLocations)
 
-        for (let i = 0; i < coinNumber; i ++) {     //populate coinMetrics array with { x: y } coordinate pair objects
-            let xCoord = this.getRandomX()
-            let yCoord = this.getRandomY()
-            let coordinates = this.createCoordPair(xCoord, yCoord)
-            while (usedCoordinates.some(cp => JSON.stringify(cp) === JSON.stringify(coordinates))) {      //check if position has already been taken
-                xCoord = this.getRandomX()
-                yCoord = this.getRandomY()
-                coordinates = this.createCoordPair(xCoord, yCoord)
-            }
-            usedCoordinates.push(coordinates)
-            coinMetrics.push(coordinates)
-        }
-        return coinMetrics
+        return this.getArrayOfCoords(usedCoordinates, coinNumber)
     }
 
     populateCoins() {
         this.coinLocations = this.getRandomCoinMetrics()
-        for (let i = 0; i < this.coinLocations.length; i ++) {
-            let x = Object.keys(this.coinLocations[i])[0]
-            let y = this.coinLocations[i][x]
-            this.alter(x, y, this.coinSymbol)
-        }
+        this.populateObjects(this.coinLocations, this.coinSymbol)
     }
 
     setMovementByAxis(direction) {
