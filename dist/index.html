@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <title>Page Title</title>
+     <title>Gold Rush</title>
      <link rel="stylesheet" type="text/css" media="screen" href="style.css">
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 <body>
     <div id="main-container">
         <div id="board"></div>
-        <div id="players">Player data</div>
-        <div id="specs">Game specs</div>
+        <div id="players"></div>
+        <div id="specs">
+            <input type="number" min="5" max="50" id="row-num" value="5">
+            <input type="number" min="5" max="50" id="col-num" value="5">
+            <button>Start</button>
+        </div>
     </div>
-
-    <!-- {{#if this == "c"}}
-    <span><i class="fas fa-coins"></i></span>
-    {{else}} -->
-    <!-- {{/if}} -->
 
 
     <script id="board-template" type="text/x-handlebars-template">

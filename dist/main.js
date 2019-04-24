@@ -6,10 +6,7 @@ const renderAll = function () {
     renderer.renderScores(board.getScores())
 }
 
-const initialSetUp = function () {
-    let colNum = 8
-    let rowNum = 6
-
+const initialSetUp = function (rowNum, colNum) {
     board.loadBoard(colNum, rowNum)
     board.populateWalls()
     board.populateCoins()
@@ -17,7 +14,12 @@ const initialSetUp = function () {
     renderAll()
 }
 
-initialSetUp()
+$("button").on("click", function () {
+    let rowNum = $(this).closest("div").find("#row-num").val()
+    let colNum = $(this).closest("div").find("#col-num").val()
+    initialSetUp(rowNum, colNum)
+    $("button").text("Start over")
+})
 
 
 $(document).keydown(function (event) {
