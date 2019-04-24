@@ -9,6 +9,23 @@
      <!-- <link rel="stylesheet" href="./font-awesome/css/font-awesome.css"> -->
 </head>
 <body>
+    <div id="main-container">
+        <div id="board"></div>
+        <div id="players">Player data</div>
+        <div id="specs">Game specs</div>
+    </div>
+
+
+    <script id="board-template" type="text/x-handlebars-template">
+        {{#each board}}
+        <div class="board-row" id="y{{@index}}">
+            {{#each this}}
+            <span class="cell x{{@index}}" data-coords="{ {{@index}}: {{@../index}} }">{{this}}</span>
+            {{/each}}
+        </div>
+        {{/each}}
+    </script>
+
      <script src="./jquery/dist/jquery.js"></script>
      <script src="./handlebars/dist/handlebars.js"></script>
      <script src="Matrix.js"></script>

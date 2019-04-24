@@ -1,0 +1,25 @@
+body {
+    padding: 10px;
+    margin: 0;
+}
+
+#main-container {
+    display: grid;
+    grid-template-rows: 20fr 1fr 1fr;
+}
+
+#board {
+    display: grid;
+}
+
+.board-row {
+    display: grid;
+}
+
+.cell {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    border: 1px black solid;
+}
+

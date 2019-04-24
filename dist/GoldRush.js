@@ -7,11 +7,16 @@ class GoldRush extends Matrix {
         this.player1 = "1"
         this.player2 = "2"
         this.coinLocations
+        this.coinSymbol = "c"
+        this.score = {
+            "1" : 0,
+            "2" : 0,
+        }
     }
 
     //y-axis: matrix rows, x-axis: matrix columns
 
-    loadBoard(numRows, numColumns) {
+    loadBoard(numColumns, numRows) {
         let newMatrix = []
         this.xLimit = numColumns - 1
         this.yLimit = numRows - 1
@@ -70,12 +75,12 @@ class GoldRush extends Matrix {
         return coinMetrics
     }
 
-    populateCoins(coinSymbol) {
+    populateCoins() {
         this.coinLocations = this.getRandomCoinMetrics()
         for (let i = 0; i < this.coinLocations.length; i ++) {
             let x = Object.keys(this.coinLocations[i])[0]
             let y = this.coinLocations[i][x]
-            this.alter(x, y, coinSymbol)
+            this.alter(x, y, this.coinSymbol)
         }
     }
 
@@ -102,6 +107,15 @@ class GoldRush extends Matrix {
         return false
     }
 
+    isCoin(x, y) {
+        if (this.get(x, y) === this.coinSymbol) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+
     movePlayer(player, direction) {
         let playerKey = player.toString()
         let movementArray = this.setMovementByAxis(direction)
@@ -111,6 +125,13 @@ class GoldRush extends Matrix {
         this.alter(this.playerLocations[playerKey].x, this.playerLocations[playerKey].y, ".")
         this.playerLocations[playerKey].x += movementArray[0]
         this.playerLocations[playerKey].y += movementArray[1]
+        if (this.isCoin(this.playerLocations[playerKey].x, this.playerLocations[playerKey].y)) {
+            this.score[playerKey] += 10
+        }
         this.alter(this.playerLocations[playerKey].x, this.playerLocations[playerKey].y, playerKey)
+    }
+
+    getScores() {
+        return this.score
     }
 }

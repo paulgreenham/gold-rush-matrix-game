@@ -28,6 +28,10 @@ class Matrix {
         }
     }
 
+    getMatrix() {
+        return this.matrix
+    }
+
     get(x, y) {
         return this.matrix[y][x]
     }
