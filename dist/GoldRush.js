@@ -85,7 +85,7 @@ class GoldRush extends Matrix {
     }
 
     setMovementByAxis(direction) {
-        let movementArray = [0, 0]      //["vertical change", "horizontal change"]
+        let movementArray = [0, 0]      //["horizontal change", "vertical change"]
         
         if (direction === "left") {
             movementArray[0] = -1
@@ -103,8 +103,16 @@ class GoldRush extends Matrix {
         return movementArray
     }
 
-    goesOutOfBounds(player, movementArray) {     //to be completed later
-        return false
+    isInvalidMove(player, movementArray) {
+        if (this.playerLocations[player].x + movementArray[0] < 0 || this.playerLocations[player].x + movementArray[0] > this.xLimit) {
+            return true
+        }
+        else if (this.playerLocations[player].y + movementArray[1] < 0 || this.playerLocations[player].y + movementArray[1] > this.yLimit) {
+            return true
+        }
+        else {
+            return false
+        }
     }
 
     isCoin(x, y) {
@@ -116,15 +124,19 @@ class GoldRush extends Matrix {
         }
     }
 
+    adjustPlayerPosition(player, movementArray) {
+        this.playerLocations[player].x += movementArray[0]
+        this.playerLocations[player].y += movementArray[1]
+    }
+
     movePlayer(player, direction) {
         let playerKey = player.toString()
         let movementArray = this.setMovementByAxis(direction)
 
-        // if(this.goesOutOfBounds(playerKey, movementArray)) { return }
+        if (this.isInvalidMove(playerKey, movementArray)) { return }
 
         this.alter(this.playerLocations[playerKey].x, this.playerLocations[playerKey].y, ".")
-        this.playerLocations[playerKey].x += movementArray[0]
-        this.playerLocations[playerKey].y += movementArray[1]
+        this.adjustPlayerPosition(playerKey, movementArray)
         if (this.isCoin(this.playerLocations[playerKey].x, this.playerLocations[playerKey].y)) {
             this.score[playerKey] += 10
         }

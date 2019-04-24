@@ -1,9 +1,9 @@
 const board = new GoldRush()
 const renderer = new Renderer()
 
-const setBoardSize = function (colNum, rowNum) {
-    $("#board").css("grid-template-rows", `repeat(${rowNum}, 1fr)`)
-    $(".board-row").css("grid-template-columns", `repeat(${colNum}, 1fr)`)
+const renderAll = function () {
+    renderer.renderBoard(board.getMatrix())
+    renderer.renderScores(board.getScores())
 }
 
 const initialSetUp = function () {
@@ -13,16 +13,46 @@ const initialSetUp = function () {
     board.loadBoard(colNum, rowNum)
     board.populateCoins()
 
-    renderer.renderBoard(board.getMatrix())
-    setBoardSize(colNum, rowNum)
+    renderAll()
 }
 
 initialSetUp()
 
-$(document).keypress(function (e) {
 
-    if (e.which == 119) {
-          board.movePlayer(1, "up")
+$(document).keydown(function (event) {
+
+    if (event.which == 87) {
+        board.movePlayer(1, "up")
+        renderAll()
+    }
+    else if (event.which == 83) {
+        board.movePlayer(1, "down")
+        renderAll()
+    }
+    else if (event.which == 65) {
+        board.movePlayer(1, "left")
+        renderAll()
+    }
+    else if (event.which == 68) {
+        board.movePlayer(1, "right")
+        renderAll()
+    }
+
+    else if (event.which == 73) {
+        board.movePlayer(2, "up")
+        renderAll()
+    }
+    else if (event.which == 75) {
+        board.movePlayer(2, "down")
+        renderAll()
+    }
+    else if (event.which == 74) {
+        board.movePlayer(2, "left")
+        renderAll()
+    }
+    else if (event.which == 76) {
+        board.movePlayer(2, "right")
+        renderAll()
     }
 
 })

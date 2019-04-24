@@ -5,7 +5,9 @@ body {
 
 #main-container {
     display: grid;
-    grid-template-rows: 20fr 1fr 1fr;
+    grid-template-rows: 10fr 1fr 1fr;
+    height: 100vh;
+    widows: 100vw;
 }
 
 #board {
