@@ -54,13 +54,12 @@ class GoldRush extends Matrix {
         let usedCoordinates = []        //add current players' positions to the array of used coordinates
         usedCoordinates.push(this.createCoordPair(this.playerLocations[this.player1].x, this.playerLocations[this.player1].y))
         usedCoordinates.push(this.createCoordPair(this.playerLocations[this.player2].x, this.playerLocations[this.player2].y))
-        console.log(usedCoordinates)
 
         for (let i = 0; i < coinNumber; i ++) {     //populate coinMetrics array with { x: y } coordinate pair objects
             let xCoord = this.getRandomX()
             let yCoord = this.getRandomY()
             let coordinates = this.createCoordPair(xCoord, yCoord)
-            while (usedCoordinates.some(cp => cp == coordinates)) {      //check if position has already been taken
+            while (usedCoordinates.some(cp => JSON.stringify(cp) === JSON.stringify(coordinates))) {      //check if position has already been taken
                 xCoord = this.getRandomX()
                 yCoord = this.getRandomY()
                 coordinates = this.createCoordPair(xCoord, yCoord)
@@ -68,8 +67,6 @@ class GoldRush extends Matrix {
             usedCoordinates.push(coordinates)
             coinMetrics.push(coordinates)
         }
-        console.log(usedCoordinates)
-        console.log(coinMetrics)
         return coinMetrics
     }
 
