@@ -20,15 +20,17 @@
         {{#each board}}
         <div class="board-row" id="y{{@index}}">
             {{#each this}}
-            <span class="cell x{{@index}}" data-coords="{ {{@index}}: {{@../index}} }">{{this}}</span>
+            <span class="cell x{{@index}}" data-coords="{ {{@index}}: {{@../index}} }">
+                {{this}}
+            </span>
             {{/each}}
         </div>
         {{/each}}
     </script>
 
     <script id="scores-template" type="text/x-handlebars-template">
-        <div class="score">Player 1: {{scores.1}}</div>
-        <div class="score">Player 2: {{scores.2}}</div>
+        <div class="score">Player 1: {{1}}</div>
+        <div class="score">Player 2: {{2}}</div>
     </script>
 
      <script src="./jquery/dist/jquery.js"></script>

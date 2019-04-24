@@ -13,8 +13,6 @@ class Renderer {
         const source = $("#scores-template").html()
         const template = Handlebars.compile(source)
         const hbText = template(scores)
-        console.log(scores)
-        console.log(hbText)
         $("#players").empty().append(hbText)
     }
 }
