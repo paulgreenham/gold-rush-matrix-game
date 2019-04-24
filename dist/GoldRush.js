@@ -4,13 +4,13 @@ class GoldRush extends Matrix {
         this.playerLocations = {}
         this.xLimit
         this.yLimit
-        this.player1 = "1"
-        this.player2 = "2"
+        this.player1 = "player1"
+        this.player2 = "player2"
         this.coinLocations
-        this.coinSymbol = "c"
+        this.coinSymbol = "coin"
         this.score = {
-            "1" : 0,
-            "2" : 0,
+            "player1" : 0,
+            "player2" : 0,
         }
     }
 
@@ -48,6 +48,37 @@ class GoldRush extends Matrix {
         let coordObj = {}
         coordObj[xCoord] = yCoord
         return coordObj
+    }
+
+    addPlayerCoords(array) {
+        array.push(this.createCoordPair(this.playerLocations[this.player1].x, this.playerLocations[this.player1].y))
+        array.push(this.createCoordPair(this.playerLocations[this.player2].x, this.playerLocations[this.player2].y))
+    }
+
+    getArrayOfCoords(arrayOfInvalid, length) {      //populate new array with { x: y } coordinate pair objects that do not coincide with objects in the input array
+        let coordArray = []
+        for (let i = 0; i < length; i ++) {     
+            let xCoord = this.getRandomX()
+            let yCoord = this.getRandomY()
+            let coordinates = this.createCoordPair(xCoord, yCoord)
+            while (arrayOfInvalid.some(cp => JSON.stringify(cp) === JSON.stringify(coordinates))) {      //check if position has already been taken
+                xCoord = this.getRandomX()
+                yCoord = this.getRandomY()
+                coordinates = this.createCoordPair(xCoord, yCoord)
+            }
+            arrayOfInvalid.push(coordinates)
+            coordArray.push(coordinates)
+        }
+        return coordArray
+    }
+
+    getRandomWallMetrics() {
+        let totalCells = (this.xLimit + 1) * (this.yLimit + 1)
+        let wallNumber = Math.ceil((Math.random() + 1) * totalCells / 5)
+
+        let usedCoordinates = []
+        addPlayerCoords(usedCoordinates)
+        return getArrayOfCoords(usedCoordinates, wallNumber)
     }
 
     getRandomCoinMetrics() {
@@ -103,13 +134,41 @@ class GoldRush extends Matrix {
         return movementArray
     }
 
+    hasInvalidX(xCoord) {
+        return xCoord < 0 || xCoord > this.xLimit
+    }
+
+    hasInvalidY(yCoord) {
+        return yCoord < 0 || yCoord > this.yLimit
+    }
+
+    getOtherPlayer(player) {
+        let playerIndex = parseInt(player[player.length - 1]) - 1
+        let newPlayerIndex = Math.abs(playerIndex - 1)
+        return "player" + (newPlayerIndex + 1).toString()
+    }
+
+    hasXConverge(player, xCoord) {
+        return this.playerLocations[player].x + xCoord === this.playerLocations[this.getOtherPlayer(player)].x
+    }
+
+    hasYConverge(player, yCoord) {
+        return this.playerLocations[player].y + yCoord === this.playerLocations[this.getOtherPlayer(player)].y
+    }
+
     isInvalidMove(player, movementArray) {
-        if (this.playerLocations[player].x + movementArray[0] < 0 || this.playerLocations[player].x + movementArray[0] > this.xLimit) {
+
+        if (this.hasInvalidX(this.playerLocations[player].x + movementArray[0])) { 
             return true
         }
-        else if (this.playerLocations[player].y + movementArray[1] < 0 || this.playerLocations[player].y + movementArray[1] > this.yLimit) {
+        else if (this.hasInvalidY(this.playerLocations[player].y + movementArray[1])) { 
             return true
         }
+
+        else if (this.hasXConverge(player, movementArray[0]) && this.hasYConverge(player, movementArray[1])) {
+            return true     //ie. intended move converges on position of other player
+        }
+
         else {
             return false
         }
@@ -130,17 +189,16 @@ class GoldRush extends Matrix {
     }
 
     movePlayer(player, direction) {
-        let playerKey = player.toString()
         let movementArray = this.setMovementByAxis(direction)
 
-        if (this.isInvalidMove(playerKey, movementArray)) { return }
+        if (this.isInvalidMove(player, movementArray)) { return }
 
-        this.alter(this.playerLocations[playerKey].x, this.playerLocations[playerKey].y, ".")
-        this.adjustPlayerPosition(playerKey, movementArray)
-        if (this.isCoin(this.playerLocations[playerKey].x, this.playerLocations[playerKey].y)) {
-            this.score[playerKey] += 10
+        this.alter(this.playerLocations[player].x, this.playerLocations[player].y, ".")
+        this.adjustPlayerPosition(player, movementArray)
+        if (this.isCoin(this.playerLocations[player].x, this.playerLocations[player].y)) {
+            this.score[player] += 10
         }
-        this.alter(this.playerLocations[playerKey].x, this.playerLocations[playerKey].y, playerKey)
+        this.alter(this.playerLocations[player].x, this.playerLocations[player].y, player)
     }
 
     getScores() {

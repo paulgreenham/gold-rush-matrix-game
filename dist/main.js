@@ -7,8 +7,8 @@ const renderAll = function () {
 }
 
 const initialSetUp = function () {
-    let colNum = 5
-    let rowNum = 5
+    let colNum = 8
+    let rowNum = 6
 
     board.loadBoard(colNum, rowNum)
     board.populateCoins()
@@ -22,75 +22,37 @@ initialSetUp()
 $(document).keydown(function (event) {
 
     if (event.which == 87) {
-        board.movePlayer(1, "up")
+        board.movePlayer("player1", "up")
         renderAll()
     }
     else if (event.which == 83) {
-        board.movePlayer(1, "down")
+        board.movePlayer("player1", "down")
         renderAll()
     }
     else if (event.which == 65) {
-        board.movePlayer(1, "left")
+        board.movePlayer("player1", "left")
         renderAll()
     }
     else if (event.which == 68) {
-        board.movePlayer(1, "right")
+        board.movePlayer("player1", "right")
         renderAll()
     }
 
     else if (event.which == 73) {
-        board.movePlayer(2, "up")
+        board.movePlayer("player2", "up")
         renderAll()
     }
     else if (event.which == 75) {
-        board.movePlayer(2, "down")
+        board.movePlayer("player2", "down")
         renderAll()
     }
     else if (event.which == 74) {
-        board.movePlayer(2, "left")
+        board.movePlayer("player2", "left")
         renderAll()
     }
     else if (event.which == 76) {
-        board.movePlayer(2, "right")
+        board.movePlayer("player2", "right")
         renderAll()
     }
 
 })
-
-
-
-
-
-
-
-
-
-// board.print()
-
-// board.movePlayer(1, "down")
-// board.print()
-
-// board.movePlayer(2, "left")
-// board.print()
-
-// board.populateCoins("c")
-// board.print()
-
-// board.movePlayer(1, "down")
-// board.print()
-
-// board.movePlayer(2, "up")
-// board.print()
-
-// console.log(board.getScores())
-
-// board.movePlayer(1, "right")
-// board.print()
-
-// board.movePlayer(2, "left")
-// board.print()
-
-// console.log(board.getScores())
-
-// board.populateCoins("c")
-// board.print()

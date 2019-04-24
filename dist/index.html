@@ -6,7 +6,7 @@
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <title>Page Title</title>
      <link rel="stylesheet" type="text/css" media="screen" href="style.css">
-     <!-- <link rel="stylesheet" href="./font-awesome/css/font-awesome.css"> -->
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 <body>
     <div id="main-container">
@@ -15,22 +15,27 @@
         <div id="specs">Game specs</div>
     </div>
 
+    <!-- {{#if this == "c"}}
+    <span><i class="fas fa-coins"></i></span>
+    {{else}} -->
+    <!-- {{/if}} -->
+
 
     <script id="board-template" type="text/x-handlebars-template">
         {{#each board}}
-        <div class="board-row" id="y{{@index}}">
+        <div class="board-row">
             {{#each this}}
-            <span class="cell x{{@index}}" data-coords="{ {{@index}}: {{@../index}} }">
-                {{this}}
-            </span>
+            <div class="cell" data-coords="{ {{@index}}: {{@../index}} }">
+                <span class="{{this}}"></span>
+            </div>
             {{/each}}
         </div>
         {{/each}}
     </script>
 
     <script id="scores-template" type="text/x-handlebars-template">
-        <div class="score">Player 1: {{1}}</div>
-        <div class="score">Player 2: {{2}}</div>
+        <div class="score">Player 1: {{player1}}</div>
+        <div class="score">Player 2: {{player2}}</div>
     </script>
 
      <script src="./jquery/dist/jquery.js"></script>
