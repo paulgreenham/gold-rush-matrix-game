@@ -6,15 +6,14 @@
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <title>Gold Rush</title>
      <link rel="stylesheet" type="text/css" media="screen" href="style.css">
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-</head>
+     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet"></head>
 <body>
     <div id="main-container">
         <div id="board"></div>
         <div id="players"></div>
         <div id="specs">
-            <input type="number" min="5" max="50" id="row-num" value="5">
-            <input type="number" min="5" max="50" id="col-num" value="5">
+            <input type="number" min="5" max="25" id="row-num" value="5">
+            <input type="number" min="5" max="25" id="col-num" value="5">
             <button>Start</button>
         </div>
     </div>
@@ -33,8 +32,8 @@
     </script>
 
     <script id="scores-template" type="text/x-handlebars-template">
-        <div class="score">Player 1: {{player1}}</div>
-        <div class="score">Player 2: {{player2}}</div>
+        <div id="player1">Player 1: {{player1}}</div>
+        <div id="player2">Player 2: {{player2}}</div>
     </script>
 
      <script src="./jquery/dist/jquery.js"></script>

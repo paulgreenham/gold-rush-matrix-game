@@ -14,6 +14,8 @@ const initialSetUp = function (rowNum, colNum) {
     renderAll()
 }
 
+initialSetUp(5, 5)
+
 $("button").on("click", function () {
     let rowNum = $(this).closest("div").find("#row-num").val()
     let colNum = $(this).closest("div").find("#col-num").val()

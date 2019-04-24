@@ -9,6 +9,49 @@ body {
     grid-template-rows: 10fr 1fr 1fr;
     height: 100vh;
     widows: 100vw;
+    font-family: 'Indie Flower', cursive;
+    font-weight: bolder;
+    font-size: 48px;
+}
+
+#players {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#player1 {
+    justify-self: left;
+    align-self: center;
+    color: red;
+    margin: 10px;
+    margin-left: 20px;
+}
+
+#player2 {
+    justify-self: right;
+    align-self: center;
+    color: blue;
+    margin: 10px;
+    margin-right: 20px;
+}
+
+#specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 4fr;
+}
+
+input {
+    display: grid;
+    font-size: 36px;
+    padding-left: 20px;
+}
+
+button {
+    background-color: darkgreen;
+    font-family: 'Indie Flower', cursive;
+    font-weight: 500;
+    font-size: 48px;
+    color: #ECF0F1;
 }
 
 #board {
