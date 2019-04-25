@@ -7,7 +7,7 @@ const renderAll = function () {
 }
 
 const initialSetUp = function (rowNum, colNum) {
-    board.loadBoard(colNum, rowNum)
+    board.loadBoard(colNum, rowNum)     //switch to {x, y} framework
     board.populateWalls()
     board.populateCoins()
 
@@ -22,8 +22,29 @@ $("button").on("click", function () {
     let colNum = $(this).closest("div").find("#col-num").val()
     board.resetScores()
     initialSetUp(rowNum, colNum)
+    $("#board").removeClass("end-message")      //removes previous end message formatting
     $("button").text("Start over")
 })
+
+
+const getEndGameMessage = function(winner) {
+    if (winner === "draw") {
+        return "The game is a draw"
+    }
+    else if (winner === "player1") {
+        return "Player 1 Wins!"
+    }
+    else if (winner === "player2") {
+        return "Player 2 Wins!"
+    }
+}
+
+const checkEndGame = function() {
+    let endCondition = board.finishGame()
+    if (endCondition) {
+        renderer.renderEnd(getEndGameMessage(endCondition))
+    }
+}
 
 
 const getCellCoords = function(cell) {
@@ -82,6 +103,7 @@ $("#board").on("click", ".cell", function () {
         renderAll()
     }
 
+    checkEndGame()
 })
 
 
@@ -121,4 +143,5 @@ $(document).keydown(function (event) {
         renderAll()
     }
 
+    checkEndGame()
 })

@@ -15,4 +15,10 @@ class Renderer {
         const hbText = template(scores)
         $("#players").empty().append(hbText)
     }
+
+    renderEnd(message) {
+        $("#board").empty().text(message)
+        $("#board").css("grid-template-rows", "")
+        $("#board").addClass("end-message")
+    }
 }

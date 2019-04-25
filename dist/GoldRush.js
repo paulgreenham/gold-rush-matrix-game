@@ -222,10 +222,19 @@ class GoldRush extends Matrix {
         this.score[this.player2] = 0
     }
 
-    isGameFinished() {
+    getWinner() {
+        if (this.score[this.player1] == this.score[this.player2]) {
+            return "draw"
+        }
+        else {
+            return this.score[this.player1] > this.score[this.player2] ? this.player1 : this.player2
+        }
+    }
+    
+    finishGame() {
         let totalScore = this.score[this.player1] + this.score[this.player2]
         if (this.coinLocations.length === totalScore / 10) {
-            return true
+            return this.getWinner()
         }
         else {
             return false

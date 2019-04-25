@@ -7,11 +7,13 @@ body {
 #main-container {
     display: grid;
     grid-template-rows: 10fr 1fr 1fr;
-    height: 100vh;
-    widows: 100vw;
+    height: 95vh;
+    width: 95vw;
     font-family: 'Indie Flower', cursive;
     font-weight: bolder;
-    font-size: 48px;
+    font-size: 4vw;
+    padding-left: 1vw;
+    padding-top: 1vh;
 }
 
 #players {
@@ -24,7 +26,7 @@ body {
     align-self: center;
     color: red;
     margin: 10px;
-    margin-left: 20px;
+    margin-left: 2vw;
 }
 
 #player2 {
@@ -32,7 +34,7 @@ body {
     align-self: center;
     color: blue;
     margin: 10px;
-    margin-right: 20px;
+    margin-right: 2vw;
 }
 
 #specs {
@@ -42,15 +44,15 @@ body {
 
 input {
     display: grid;
-    font-size: 36px;
-    padding-left: 20px;
+    font-size: 3vw;
+    padding-left: 2vw;
 }
 
 button {
     background-color: darkgreen;
     font-family: 'Indie Flower', cursive;
     font-weight: 500;
-    font-size: 48px;
+    font-size: 3vw;
     color: #ECF0F1;
 }
 
@@ -109,4 +111,29 @@ button {
     width: 30px;
     border-radius: 50%;
     background-color: blue;
+}
+
+@keyframes animate-end-message {
+    from {
+        font-size: 7vw;
+        color: green;
+    }
+    to {
+        font-size: 9vw;
+        color: darkgreen;
+    }
+}
+
+.end-message {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    font-size: 8vw;
+    color: darkgreen;
+    
+    animation-name: animate-end-message;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
 }
