@@ -21,9 +21,9 @@
 
     <script id="board-template" type="text/x-handlebars-template">
         {{#each board}}
-        <div class="board-row">
+        <div class="board-row" data-y="{{@index}}">
             {{#each this}}
-            <div class="cell {{this}}" data-coords="{ {{@index}}: {{@../index}} }">
+            <div class="cell {{this}}" data-x="{{@index}}">
                 <span></span>
             </div>
             {{/each}}

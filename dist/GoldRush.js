@@ -172,7 +172,7 @@ class GoldRush extends Matrix {
         else if (this.hasXConverge(player, movementArray[0]) && this.hasYConverge(player, movementArray[1])) {
             return true     //ie. intended move converges on position of other player
         }
-        
+
         else if (this.coordsInWall(this.playerLocations[player].x + movementArray[0], this.playerLocations[player].y + movementArray[1])) {
             return true
         }
@@ -211,5 +211,24 @@ class GoldRush extends Matrix {
 
     getScores() {
         return this.score
+    }
+
+    getPlayerCoords(player) {
+        return [this.playerLocations[player].x, this.playerLocations[player].y]
+    }
+
+    resetScores() {
+        this.score[this.player1] = 0
+        this.score[this.player2] = 0
+    }
+
+    isGameFinished() {
+        let totalScore = this.score[this.player1] + this.score[this.player2]
+        if (this.coinLocations.length === totalScore / 10) {
+            return true
+        }
+        else {
+            return false
+        }
     }
 }
